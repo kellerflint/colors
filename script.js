@@ -78,11 +78,11 @@ setInterval(function () {
         increaseBlue = true;
     }
 
-    console.log(bg_color);
-
     let bg_color = "rgb(" + red + "," + green + "," + blue + ")";
     // +128 and %256 to make sure the color of the text doesn't blend in with the background color.
     let color = "rgb(" + (red + 128) % 256 + "," + (green + 128) % 256 + "," + (blue + 128) % 256 + ")";
+
+    console.log(bg_color);
 
     colors.style.color = color;
     body.style.backgroundColor = bg_color;
