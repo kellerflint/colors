@@ -40,17 +40,17 @@ setInterval(function () {
     }
 
     if (Math.random() < 0.05) {
-        if (increaseRed)
-            increaseRed = false;
+        if (increaseGreen)
+            increaseGreen = false;
         else
-            increaseRed = true;
+            increaseGreen = true;
     }
 
     if (Math.random() < 0.05) {
-        if (increaseRed)
-            increaseRed = false;
+        if (increaseBlue)
+            increaseBlue = false;
         else
-            increaseRed = true;
+            increaseBlue = true;
     }
 
     // Prevents out of bounds colors
