@@ -1,9 +1,13 @@
+const VARIANCE = 0.02;
+
 let body = document.getElementsByTagName("body");
 let message = document.getElementById("message");
 body = body[0];
 
+// [color value, isIncreasing?]
 let colors = [[0, true], [0, true], [0, true]];
 
+// increases value of the given color
 function increaseColor(colorId) {
     if (colors[colorId][1]) {
         colors[colorId][0]++;
@@ -12,8 +16,9 @@ function increaseColor(colorId) {
     }
 }
 
+// Randomly reverses the given color's direction
 function randomize(colorId) {
-    if (Math.random() < 0.02) {
+    if (Math.random() < VARIANCE) {
         if (colors[colorId][1])
             colors[colorId][1] = false;
         else
@@ -21,6 +26,7 @@ function randomize(colorId) {
     }
 }
 
+// if the given color is out of bounds, reverses direction to keep it in bounds
 function checkOutOfBounds(colorId) {
     if (colors[colorId][0] >= 255) {
         colors[colorId][1] = false;
@@ -29,9 +35,11 @@ function checkOutOfBounds(colorId) {
     }
 }
 
+// interval changes color every 20 ms
 setInterval(function () {
 
-    randomize(Math.floor(Math.random() * 3));
+    // randomizes index between 0 and 2 inclusive
+    randomize(Math.floor(Math.random() * colors.length));
 
     for (let i in colors) {
         increaseColor(i);
@@ -43,7 +51,7 @@ setInterval(function () {
         colors[1][0] + "," +
         colors[2][0] + ")";
 
-    // +128 and %256 to make sure the color of the text doesn't blend in with the background color.
+    // +128 %256 to prevent blending in with the background.
     let color = "rgb(" +
         (colors[0][0] + 128) % 256 + "," +
         (colors[1][0] + 128) % 256 + "," +
