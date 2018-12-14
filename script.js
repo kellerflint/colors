@@ -13,7 +13,7 @@ function increaseColor(colorId) {
 }
 
 function randomize(colorId) {
-    if (Math.random() < 0.05) {
+    if (Math.random() < 0.02) {
         if (colors[colorId][1])
             colors[colorId][1] = false;
         else
@@ -31,9 +31,10 @@ function checkOutOfBounds(colorId) {
 
 setInterval(function () {
 
+    randomize(Math.floor(Math.random() * 3));
+
     for (let i in colors) {
         increaseColor(i);
-        randomize(i);
         checkOutOfBounds(i);
     }
 
