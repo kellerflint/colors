@@ -1,90 +1,56 @@
 let body = document.getElementsByTagName("body");
-let colors = document.getElementById("colors");
+let message = document.getElementById("message");
 body = body[0];
 
-let red = 2;
-let green = 2;
-let blue = 2;
+let colors = [[0, true], [0, true], [0, true]];
 
-let increaseRed = true;
-let increaseGreen = true;
-let increaseBlue = true;
+function increaseColor(colorId) {
+    if (colors[colorId][1]) {
+        colors[colorId][0]++;
+    } else {
+        colors[colorId][0]--;
+    }
+}
+
+function randomize(colorId) {
+    if (Math.random() < 0.05) {
+        if (colors[colorId][1])
+            colors[colorId][1] = false;
+        else
+            colors[colorId][1] = true;
+    }
+}
+
+function checkOutOfBounds(colorId) {
+    if (colors[colorId][0] >= 255) {
+        colors[colorId][1] = false;
+    } else if (colors[colorId][0] <= 1) {
+        colors[colorId][1] = true;
+    }
+}
 
 setInterval(function () {
 
-    // Increase or decrease colors
-    if (increaseRed) {
-        red++;
-    } else {
-        red--;
+    for (let i in colors) {
+        increaseColor(i);
+        randomize(i);
+        checkOutOfBounds(i);
     }
 
-    if (increaseGreen) {
-        green++;
-    } else {
-        green--;
-    }
+    let bg_color = "rgb(" +
+        colors[0][0] + "," +
+        colors[1][0] + "," +
+        colors[2][0] + ")";
 
-    if (increaseBlue) {
-        blue++;
-    } else {
-        blue--;
-    }
-
-    // To make changes randomer
-    if (Math.random() < 0.05) {
-        if (increaseRed)
-            increaseRed = false;
-        else
-            increaseRed = true;
-    }
-
-    if (Math.random() < 0.05) {
-        if (increaseGreen)
-            increaseGreen = false;
-        else
-            increaseGreen = true;
-    }
-
-    if (Math.random() < 0.05) {
-        if (increaseBlue)
-            increaseBlue = false;
-        else
-            increaseBlue = true;
-    }
-
-    // Prevents out of bounds colors
-    if (red >= 255) {
-        increaseRed = false;
-    }
-
-    if (red <= 1) {
-        increaseRed = true;
-    }
-
-    if (green >= 255) {
-        increaseGreen = false;
-    }
-
-    if (green <= 1) {
-        increaseGreen = true;
-    }
-
-    if (blue >= 255) {
-        increaseBlue = false;
-    }
-
-    if (blue <= 1) {
-        increaseBlue = true;
-    }
-
-    let bg_color = "rgb(" + red + "," + green + "," + blue + ")";
     // +128 and %256 to make sure the color of the text doesn't blend in with the background color.
-    let color = "rgb(" + (red + 128) % 256 + "," + (green + 128) % 256 + "," + (blue + 128) % 256 + ")";
+    let color = "rgb(" +
+        (colors[0][0] + 128) % 256 + "," +
+        (colors[1][0] + 128) % 256 + "," +
+        (colors[2][0] + 128) % 256 + ")";
 
     console.log(bg_color);
 
-    colors.style.color = color;
+    message.style.color = color;
     body.style.backgroundColor = bg_color;
 
 }, 20);
